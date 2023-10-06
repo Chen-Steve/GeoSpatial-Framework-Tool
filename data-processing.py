@@ -1,6 +1,8 @@
 import geopandas as gpd
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
+from matplotlib.widgets import Button
+from svgpath2mpl import parse_path
 import os
 
 def load_shapefiles(directory):
@@ -11,6 +13,15 @@ def load_shapefiles(directory):
             layer_name = filename[:-4]  # Removing the .shp extension
             shapefiles[layer_name] = gpd.read_file(filepath)
     return shapefiles
+
+def plot_svg(ax, svg_path, x, y, scale=0.01):
+    """Plot an SVG at given coordinates on a map."""
+    with open(svg_path, 'r') as f:
+        svg = f.read()
+    path = parse_path(svg)
+    for idp, dp in enumerate(path.to_polygons()):
+        ax.plot(scale * dp[:, 0] + x, scale * dp[:, 1] + y, color="black")
+
 
 def query_by_feature_type(feature_type, all_data):
     """
