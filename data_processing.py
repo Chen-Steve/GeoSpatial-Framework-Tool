@@ -27,7 +27,19 @@ def query_by_feature_type(feature_type, all_data):
     else:
         print(f"Feature type '{feature_type}' not found.")
         return None
-
+def query_buildings_by_city(city_name, all_data):
+    # Ensure the buildings data is available
+    if 'buildings-polygon' in all_data:
+        buildings_data = all_data['building-polygon']
+        
+        # Filter the buildings data by the city name
+        matching_buildings = buildings_data[buildings_data['City'] == city_name]
+        
+        return matching_buildings
+    else:
+        print("Buildings data not found.")
+        return None
+    
 # Load data
 data_folder = "data"
 all_data = load_shapefiles(data_folder)
@@ -60,6 +72,20 @@ for feature, color in color_map.items():
                 'dashArray': '5, 5'
             }
         ).add_to(m)
+        
+# Query buildings by city and overlay on the map
+buildings_in_city = query_buildings_by_city('Harbin', all_data)
+if buildings_in_city is not None:
+    folium.GeoJson(
+        buildings_in_city,
+        name='Buildings in Harbin',
+        style_function=lambda feature: {
+            'fillColor': 'purple',  # You can choose a different color if you prefer
+            'color': 'black',
+            'weight': 1.5,
+            'dashArray': '5, 5'
+        }
+    ).add_to(m)
 
 # Add a layer control
 folium.LayerControl().add_to(m)
