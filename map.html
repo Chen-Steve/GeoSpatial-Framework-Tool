@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,12 +13,44 @@
             padding: 0;
         }
 
-        #map {
+        #map-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        #info-button {
             position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
+        }
+
+        #sidebar {
+            height: 100%;
+            width: 0; /* Start with the sidebar closed (width 0) */
+            position: fixed;
+            z-index: 2;
             top: 0;
-            bottom: 0;
-            right: 0;
             left: 0;
+            background-color: white;
+            overflow-x: hidden; /* Disable horizontal scroll */
+            transition: 0.5s; /* Transition effect when opening/closing */
+            padding-top: 60px; /* Top padding */
+        }
+
+        #sidebar-content {
+            padding: 20px;
+            text-align: left;
+        }
+
+        #close-btn {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 30px;
+            margin-left: 50px;
+            cursor: pointer;
         }
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css" />
@@ -38,10 +69,117 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
 </head>
-
 <body>
-    <!-- Embed the generated map_output.html using an iframe -->
-    <iframe src="map_output.html" style="border: none; width: 100%; height: 100%;"></iframe>
-</body>
+    <div id="map-container">
+        <!-- Embed the generated map_output.html using an iframe -->
+        <iframe id="map" src="map_output.html" style="border: none; width: 100%; height: 100%;"></iframe>
+    </div>
 
+    <!-- The Sidebar -->
+    <div id="sidebar">
+        <a href="javascript:void(0)" id="close-btn">&times;</a>
+        <div id="sidebar-content">
+            <!-- Harbin Content -->
+            <div id="harbin-content">
+                <h2>Harbin, Capital of Heilongjiang</h2>
+                <p>
+                    The region where Harbin is located has been inhabited since ancient times. The Jin (1115–1234) and Qing (1644–1912) dynasties saw significant development in the area.                
+                </p>
+                <p>
+                    Harbin's modern history began in the late 19th century with the construction of the Trans-Siberian Railway. The Russian Empire was granted permission to build a railway across Manchuria, which led to the founding of the city of Harbin in 1898.
+                </p>
+                <p>
+                The influx of Russian engineers, workers, and later refugees (fleeing the Russian Revolution of 1917) greatly influenced the city's architecture, culture, and demographics, earning it the nickname "Oriental St. Petersburg."   
+                </p>
+                <p>
+                Throughout the 20th century, Harbin was a hotbed of political activity, witnessing Japanese occupation and later becoming an important industrial base after the establishment of the People's Republic of China in 1949.
+                </p>
+            </div>
+            <!-- Saint Sophia Cathedral Content -->
+            <div id="saint-sophia-content">
+                <h2>Saint Sophia Cathedral</h2>
+                <p>
+                    Saint Sophia Cathedral in Harbin is a magnificent architectural marvel and a historical emblem of the city. Constructed by the Russian Empire in 1907 after the completion of the Trans-Siberian Railway, the cathedral stands as a testament to Harbin's multicultural roots, particularly its Russian influences.
+                </p>
+                <p>
+                    The cathedral was built in the Byzantine style, characterized by its grandiose dome and towering spires, which dominate the skyline of Harbin. Its brick walls and green-topped dome are iconic features that blend harmoniously with the city's urban landscape. The edifice originally served as a spiritual haven for the sizable Russian community that had settled in Harbin during the early 20th century.
+                </p>
+                <p>
+                    Throughout its history, Saint Sophia Cathedral has witnessed the ebb and flow of Harbin's fortunes. During the Japanese occupation of Manchuria, the cathedral survived as a symbol of resilience. Following the establishment of the People's Republic of China, the cathedral's religious functions were suppressed during the Cultural Revolution, and it was repurposed for secular use.
+                </p>
+                <p>
+                    In the 1990s, with the easing of religious restrictions and a growing appreciation for historical heritage, Saint Sophia Cathedral was designated a protected building. It underwent restoration to preserve its architectural splendor and was transformed into the Harbin Architecture Art Gallery, which showcases the city's architectural history and the cathedral's own cultural significance.
+                </p>
+                <p>
+                    Today, Saint Sophia Cathedral is not only a visual spectacle but also a cultural hub that connects visitors to Harbin's past. It stands as a proud reminder of the city's diverse cultural tapestry, reflecting the interweaving of Eastern and Western influences that have shaped Harbin's unique identity.
+                </p>
+            </div>
+            <!-- Stalin Park Content -->
+            <div id="stalin-park-content" style="display: none;">
+                <h2>Harbin Stalin Park</h2>
+                <p>
+                    Saint Sophia Cathedral in Harbin is a magnificent architectural marvel and a historical emblem of the city. Constructed by the Russian Empire in 1907 after the completion of the Trans-Siberian Railway, the cathedral stands as a testament to Harbin's multicultural roots, particularly its Russian influences.
+                </p>
+                <p>
+                    The cathedral was built in the Byzantine style, characterized by its grandiose dome and towering spires, which dominate the skyline of Harbin. Its brick walls and green-topped dome are iconic features that blend harmoniously with the city's urban landscape. The edifice originally served as a spiritual haven for the sizable Russian community that had settled in Harbin during the early 20th century.
+                </p>
+                <p>
+                    Throughout its history, Saint Sophia Cathedral has witnessed the ebb and flow of Harbin's fortunes. During the Japanese occupation of Manchuria, the cathedral survived as a symbol of resilience. Following the establishment of the People's Republic of China, the cathedral's religious functions were suppressed during the Cultural Revolution, and it was repurposed for secular use.
+                </p>
+                <p>
+                    In the 1990s, with the easing of religious restrictions and a growing appreciation for historical heritage, Saint Sophia Cathedral was designated a protected building. It underwent restoration to preserve its architectural splendor and was transformed into the Harbin Architecture Art Gallery, which showcases the city's architectural history and the cathedral's own cultural significance.
+                </p>
+                <p>
+                    Today, Saint Sophia Cathedral is not only a visual spectacle but also a cultural hub that connects visitors to Harbin's past. It stands as a proud reminder of the city's diverse cultural tapestry, reflecting the interweaving of Eastern and Western influences that have shaped Harbin's unique identity.
+                </p>
+            </div>    
+            <!-- Volga Manor Content -->
+            <div id="volga-manor-content">
+                <h2>Volga Manor</h2>
+                <p>
+                    Volga Manor, located on the outskirts of Harbin, Heilongjiang Province in China, is a sprawling landscape that encapsulates the charm and architectural elegance of Russian culture. This theme park, covering an area of over 600,000 square meters, is a unique blend of natural scenery, Russian-style architecture, and cultural exhibits.                </p>
+                <p>
+                    The manor is named after the Volga River, the longest river in Europe, which is of great significance in Russian culture. The park's design and architecture are inspired by classic Russian aesthetics, and it features a collection of replicas of iconic Russian buildings, including churches with onion domes, traditional wooden houses, and elegant stone castles.
+                </p>
+                <p>
+                    One of the highlights of Volga Manor is the stunning St. Nicholas Church, a full-scale replica of a Russian Orthodox church that was originally located in Harbin before being destroyed. The church is not only a testament to the architectural prowess but also serves as a venue for cultural events and weddings, adding to the manor's reputation as a romantic destination.
+                </p>
+                <p>
+                    The park is not just about architecture; it is also home to lush gardens, serene lakes, and picturesque landscapes that change with the seasons. In the winter, the manor transforms into a snowy wonderland, offering activities such as ice skating and snowmobiling, while in the summer, the greenery and flowers provide a perfect backdrop for leisurely strolls and picnics.
+                </p>
+                <p>
+                    Volga Manor is not only a tourist attraction but also a symbol of the historical connection between Harbin and Russia. It serves as a living museum, educating visitors about the Russian influence on the region's history and culture, dating back to the early 20th century when Harbin had a significant Russian population.
+                </p>
+            </div>           
+        </div>
+    </div>
+
+    <!-- Script to handle the sidebar and button click event -->
+    <script>
+        // Function to open the sidebar with specific content
+        function openSidebar(location) {
+            // Hide all content divs
+            document.getElementById("harbin-content").style.display = "none";
+            document.getElementById("saint-sophia-content").style.display = "none";
+            document.getElementById("stalin-park-content").style.display = "none";
+            document.getElementById("volga-manor-content").style.display = "none";
+
+            // Show the content div for the clicked location
+            document.getElementById(location + "-content").style.display = "block";
+
+            // Open the sidebar
+            document.getElementById("sidebar").style.width = "250px"; // Adjust the width as needed
+        }
+
+        // Function to close the sidebar
+        function closeSidebar() {
+            document.getElementById("sidebar").style.width = "0";
+        }
+
+        // Add click event listener to the close button of the sidebar
+        document.getElementById('close-btn').onclick = function() {
+            closeSidebar();
+        };
+    </script>
+</body>
 </html>

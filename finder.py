@@ -17,3 +17,4 @@ def print_column_names(shapefile_path):
 print_column_names("data/railway-station-point.shp")
 print_column_names("data/railway-line.shp")
 print_column_names("data/building-polygon.shp")
+print_column_names("data/elevation-line.shp")
