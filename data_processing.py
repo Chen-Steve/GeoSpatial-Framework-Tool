@@ -69,7 +69,7 @@ feature_location = [45.75, 126.65]  # Replace with the location you want
 popup_html = """
 <div>
     <h4>Harbin</h4>
-        <p>Information about the Harbin...</p>
+        <p>Chinese: 哈尔滨市; pinyin: Hā'ěrbīn shì</p>
     <a href="#" onclick="window.parent.openSidebar('harbin');">More details...</a>
 </div>
 """
@@ -133,6 +133,41 @@ folium.Marker(
     tooltip='Click me for more info'
 ).add_to(m)
 #---------------------------------------------
+feature_location_jewish_synagogue = [45.76880, 126.61701] 
+
+popup_html_jewish_synagogue = """
+<div>
+    <h4>Jewish Synagogue</h4>
+    <p>Chinese: 犹太新会堂旧址; pinyin: Yóutài xīn huìtáng jiùzhǐ</p>
+    <a href="#" onclick="window.parent.openSidebar('jewish_synagogue');">More details...</a>
+</div>
+"""
+popup_jewish_synagogue = folium.Popup(html=popup_html_jewish_synagogue, max_width=300)
+
+folium.Marker(
+    location=feature_location_jewish_synagogue,
+    popup=popup_jewish_synagogue,
+    tooltip='Click me for more info'
+).add_to(m)
+#---------------------------------------------Chinese: 侵华日军第731部队遗址第二保护区; pinyin: Qīn huá rìjūn dì 731 bùduì yízhǐ dì èr bǎohù qū
+feature_location_unit_731_site = [45.62814, 126.63408] 
+
+popup_html_unit_731_site = """
+<div>
+    <h4>Unit 731 Site</h4>
+    <p>Chinese: 侵华日军第731部队遗址第二保护区; pinyin: Qīn huá rìjūn dì 731 bùduì yízhǐ dì èr bǎohù qū</p>
+    <a href="#" onclick="window.parent.openSidebar('unit_731_site');">More details...</a>
+</div>
+"""
+popup_unit_731_site = folium.Popup(html=popup_html_unit_731_site, max_width=300)
+
+folium.Marker(
+    location=feature_location_unit_731_site,
+    popup=popup_unit_731_site,
+    tooltip='Click me for more info'
+).add_to(m)
+#---------------------------------------------
+
 
 # Define a color mapping
 color_map = {
